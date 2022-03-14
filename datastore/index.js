@@ -7,11 +7,21 @@ var items = {};
 
 // Public API - Fix these CRUD functions ///////////////////////////////////////
 
+
+// adding text to our items objects
 exports.create = (text, callback) => {
-  var id = counter.getNextUniqueId();
-  items[id] = text;
-  callback(null, { id, text });
+
+  counter.getNextUniqueId((err, counter) => {
+    fs.writeFile(path.join(exports.dataDir, `${counter}.txt`), text, (err) => {
+      if (err) {
+        throw ('error creating file');
+      } else {
+        callback(null, { id: counter, text: text });
+      }
+    });
+  });
 };
+
 
 exports.readAll = (callback) => {
   var data = _.map(items, (text, id) => {
