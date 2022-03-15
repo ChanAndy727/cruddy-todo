@@ -22,13 +22,38 @@ exports.create = (text, callback) => {
   });
 };
 
+// const readCounter = (callback) => {
+//   fs.readFile(exports.counterFile, (err, fileData) => {
+//     if (err) {
+//       callback(null, 0);
+//     } else {
+//       callback(null, Number(fileData));
+//     }
+//   });
+// };
 
 exports.readAll = (callback) => {
-  var data = _.map(items, (text, id) => {
-    return { id, text };
-  });
-  callback(null, data);
+  let data = [];
+  if (err) {
+    callback(null, []);
+  } else {
+    fs.readdir(testFolder, (err, fileData) => {
+      files.forEach(file => {
+        data.push(file);
+      });
+    });
+    callback(null, data);
+  }
 };
+
+
+
+// exports.readAll = (callback) => {
+//   var data = _.map(items, (text, id) => {
+//     return { id, text };
+//   });
+//   callback(null, data);
+// };
 
 exports.readOne = (id, callback) => {
   var text = items[id];
